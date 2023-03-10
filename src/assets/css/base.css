@@ -1,4 +1,4 @@
-@import "./normalize";
+@import url('./normalize.css');
 
 :root { /*伪类：根 就是html*/
   /*这里是声明变量，在别处可以使用 color：var(--color-text)*/

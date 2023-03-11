@@ -6,22 +6,8 @@
 
 <script>
 export default {
-  name: 'Category',
-
-  data() {
-    return {
-      
-    };
-  },
-
-  mounted() {
-    
-  },
-
-  methods: {
-    
-  },
-};
+  name: 'Category'
+}
 </script>
 
 <style scoped>

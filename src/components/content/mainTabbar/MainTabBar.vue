@@ -36,7 +36,7 @@ export default {
     TabBar,
     TabBarItem
   }
-};
+}
 </script>
 
 <style>

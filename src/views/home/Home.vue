@@ -8,6 +8,7 @@
 
 <script lang="js">
 import NavBar from 'components/common/navbar/NavBar.vue'
+import {getHomeMultidata} from 'network/home.js'
 
 export default {
 

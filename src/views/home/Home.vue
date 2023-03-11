@@ -3,18 +3,22 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <home-swiper :banners="banners"></home-swiper>
   </div>
 </template>
 
 <script lang="js">
 import NavBar from 'components/common/navbar/NavBar.vue'
+import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import { getHomeMultidata } from 'network/home.js'
 
 export default {
 
   name: 'Home',
   components: {
-    NavBar
+    NavBar,
+    HomeSwiper
+
   },
   data () {
     return {
@@ -37,4 +41,5 @@ export default {
     color: #fff;
     background-color: var(--color-tint);
   }
+
 </style>

@@ -26,7 +26,7 @@ export default {
   img {
     width: 100%;
   }
-  mt-swipe {
-    height: 150px;
+  .mint-swipe {
+    height: 200px;
   }
 </style>

@@ -5,6 +5,38 @@
     </nav-bar>
     <home-swiper :banners="banners"></home-swiper>
     <home-recom :recommends="recommends"></home-recom>
+    <home-feature/>
+    <home-tab/>
+    <ul>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+      <li>dhksdhksh</li>
+    </ul>
   </div>
 </template>
 
@@ -12,6 +44,9 @@
 import NavBar from 'components/common/navbar/NavBar.vue'
 import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import HomeRecom from 'views/home/childComps/HomeRecom.vue'
+import HomeFeature from 'views/home/childComps/HomeFeature.vue'
+import HomeTab from 'views/home/childComps/HomeTab.vue'
+
 import { getHomeMultidata } from 'network/home.js'
 
 export default {
@@ -20,7 +55,9 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
-    HomeRecom
+    HomeRecom,
+    HomeFeature,
+    HomeTab
 
   },
   data () {
@@ -43,6 +80,13 @@ export default {
   .home-nav {
     color: #fff;
     background-color: var(--color-tint);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
   }
-
+  #home {
+    padding-top: 44px;
+  }
 </style>

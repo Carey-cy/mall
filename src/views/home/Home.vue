@@ -6,7 +6,7 @@
     <home-swiper :banners="banners"></home-swiper>
     <home-recom :recommends="recommends"></home-recom>
     <home-feature/>
-    <home-tab/>
+    <tab-control :options="['流行','新款','精选']"/>
     <ul>
       <li>dhksdhksh</li>
       <li>dhksdhksh</li>
@@ -36,16 +36,45 @@
       <li>dhksdhksh</li>
       <li>dhksdhksh</li>
       <li>dhksdhksh</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
+      <li>gshsgshgshs</li>
     </ul>
   </div>
 </template>
 
 <script lang="js">
 import NavBar from 'components/common/navbar/NavBar.vue'
+import TabControl from 'components/content/tabcontrol/TabControl.vue'
+
 import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import HomeRecom from 'views/home/childComps/HomeRecom.vue'
 import HomeFeature from 'views/home/childComps/HomeFeature.vue'
-import HomeTab from 'views/home/childComps/HomeTab.vue'
 
 import { getHomeMultidata } from 'network/home.js'
 
@@ -57,7 +86,7 @@ export default {
     HomeSwiper,
     HomeRecom,
     HomeFeature,
-    HomeTab
+    TabControl
 
   },
   data () {

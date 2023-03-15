@@ -76,7 +76,7 @@ import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import HomeRecom from 'views/home/childComps/HomeRecom.vue'
 import HomeFeature from 'views/home/childComps/HomeFeature.vue'
 
-import { getHomeMultidata } from 'network/home.js'
+import { getHomeMultidata,getHomeGoods } from 'network/home.js'
 
 export default {
 
@@ -92,14 +92,38 @@ export default {
   data () {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      goods: {
+        'pop': {page: 0, list: []},
+        'new': {page: 0, list: []},
+        'sell': {page: 0, list: []}
+      }
     }
   },
   created () {
-    getHomeMultidata().then(res => {
+    // 请求首页multidata数据
+    this.getHomeMultidataMethods()
+    // 请求首页商品数据
+    this.getHomeGoodsMethods('pop')
+    this.getHomeGoodsMethods('new')
+    this.getHomeGoodsMethods('sell')
+  },
+  methods: {
+    // 请求首页multidata数据
+    getHomeMultidataMethods () {
+      getHomeMultidata().then(res => {
       this.banners = res.data.banner.list
       this.recommends = res.data.recommend.list
     })
+    },
+    // 请求首页商品数据
+    getHomeGoodsMethods (type) {
+      const page = this.goods[type].page + 1
+      getHomeGoods(type,page).then(res => {
+        this.goods[type].list.push(...res.data.list)
+        this.goods[type].page += 1
+      })
+    }
   }
 }
 

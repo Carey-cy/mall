@@ -6,65 +6,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <home-recom :recommends="recommends"></home-recom>
     <home-feature/>
-    <tab-control :options="['流行','新款','精选']"/>
-    <goods-list :goods="goods['pop'].list"/>
-    <ul>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>dhksdhksh</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-      <li>gshsgshgshs</li>
-    </ul>
+    <tab-control :options="['流行','新款','精选']" @tabClick="tabClick"/>
+    <goods-list :goods="showGoods"/>
   </div>
 </template>
 
@@ -99,7 +42,9 @@ export default {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
-      }
+      },
+      currentType: 'pop',
+      goodsArr: ['pop', 'new', 'sell']
     }
   },
   created () {
@@ -111,6 +56,9 @@ export default {
     this.getHomeGoodsMethods('sell')
   },
   methods: {
+    /**
+     * 网络请求相关方法
+     */
     // 请求首页multidata数据
     getHomeMultidataMethods () {
       getHomeMultidata().then(res => {
@@ -126,6 +74,18 @@ export default {
         this.goods[type].page += 1
         console.log(res)
       })
+    },
+    /**
+     * 事件监听相关方法
+     */
+    // tabControl点击事件
+    tabClick (index) {
+      this.currentType = this.goodsArr[index]
+    }
+  },
+  computed: {
+    showGoods () {
+      return this.goods[this.currentType].list
     }
   }
 }

@@ -3,11 +3,13 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
-    <home-recom :recommends="recommends"></home-recom>
-    <home-feature/>
-    <tab-control :options="['流行','新款','精选']" @tabClick="tabClick"/>
-    <goods-list :goods="showGoods"/>
+    <scroll class="home-content">
+      <home-swiper :banners="banners"></home-swiper>
+      <home-recom :recommends="recommends"></home-recom>
+      <home-feature/>
+      <tab-control :options="['流行','新款','精选']" @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
+    </scroll>
   </div>
 </template>
 
@@ -15,6 +17,7 @@
 import NavBar from 'components/common/navbar/NavBar.vue'
 import TabControl from 'components/content/tabcontrol/TabControl.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
+import Scroll from 'components/common/scroll/Scroll.vue'
 
 import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import HomeRecom from 'views/home/childComps/HomeRecom.vue'
@@ -31,8 +34,8 @@ export default {
     HomeRecom,
     HomeFeature,
     TabControl,
-    GoodsList
-
+    GoodsList,
+    Scroll
   },
   data () {
     return {
@@ -93,6 +96,11 @@ export default {
 </script>
 
 <style scoped>
+  #home {
+    padding-top: 44px;
+    position: relative;
+    height: 100vh;
+  }
   .home-nav {
     color: #fff;
     background-color: var(--color-tint);
@@ -102,7 +110,17 @@ export default {
     right: 0;
     z-index: 9;
   }
-  #home {
-    padding-top: 44px;
+  .tab-control {
+    position: sticky;
+    top: 44px;
+    z-index: 9;
+  }
+  .home-content {
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
   }
 </style>

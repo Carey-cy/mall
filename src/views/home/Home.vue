@@ -3,18 +3,21 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll
+    <div class="observe-dom-container">
+      <scroll
     class="home-content"
     ref="scroll"
     :probe-type="3"
     :pull-up-load="true"
-    @scroll="contentScroll">
+    @scroll="contentScroll"
+    @pullingUp="pullingUp">
       <home-swiper :banners="banners"></home-swiper>
       <home-recom :recommends="recommends"></home-recom>
       <home-feature/>
       <tab-control :options="['流行','新款','精选']" @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
     </scroll>
+    </div>
     <back-top  @click.native="backClick" v-show="isShow"/>
   </div>
 </template>
@@ -84,6 +87,8 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
+        // 可以再一次下拉加载
+        this.$refs.scroll.finishPullUp()
       })
     },
     /**
@@ -101,6 +106,10 @@ export default {
     // 滚动事件
     contentScroll (position) {
       this.isShow = -position.y > 1000
+    },
+    // 上拉加载更多
+    pullingUp () {
+      this.getHomeGoodsMethods(this.currentType)
     }
   },
   computed: {
@@ -116,7 +125,7 @@ export default {
   #home {
     padding-top: 44px;
     position: relative;
-    height: 100vh;
+    height: 100%;
   }
   .home-nav {
     color: #fff;

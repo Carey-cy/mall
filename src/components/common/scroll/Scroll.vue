@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper">
+  <div ref="wrapper" class="wrapper">
     <div class="content">
       <slot></slot>
     </div>
@@ -33,17 +33,27 @@ export default {
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
       movable: true,
-      zoom: true
+      zoom: true,
+      observeDOM: true,
+      observeImage: true
     })
     // 2.监听滚动位置：前提Probetype是3
     this.bscroll.on('scroll', (position) => {
       // console.log(position)
       this.$emit('scroll', position)
     })
+    // 3.上拉加载更多
+    this.bscroll.on('pullingUp', () => {
+      // console.log('上拉加载更多')
+      this.$emit('pullingUp')
+    })
   },
   methods: {
     scrollTo (x, y, time = 300) {
       this.bscroll.scrollTo(x, y, time)
+    },
+    finishPullUp () {
+      this.bscroll.finishPullUp()
     }
   }
 }

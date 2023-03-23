@@ -37,23 +37,27 @@ export default {
       observeDOM: true,
       observeImage: true
     })
-    // 2.监听滚动位置：前提Probetype是3
-    this.bscroll.on('scroll', (position) => {
+    // 2.监听滚动位置：前提Probetype是3or2
+    if (this.probeType === 2 || this.probeType === 3) {
+      this.bscroll.on('scroll', (position) => {
       // console.log(position)
       this.$emit('scroll', position)
     })
+    }
     // 3.上拉加载更多
-    this.bscroll.on('pullingUp', () => {
+    if (this.pullUpLoad) {
+      this.bscroll.on('pullingUp', () => {
       // console.log('上拉加载更多')
       this.$emit('pullingUp')
     })
+    }
   },
   methods: {
     scrollTo (x, y, time = 300) {
-      this.bscroll.scrollTo(x, y, time)
+      this.bscroll && this.bscroll.scrollTo(x, y, time)
     },
     finishPullUp () {
-      this.bscroll.finishPullUp()
+      this.bscroll && this.bscroll.finishPullUp()
     }
   }
 }

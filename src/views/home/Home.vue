@@ -3,6 +3,7 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <tab-control :options="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2" v-show="isFixed"/>
     <div class="observe-dom-container">
       <scroll
     class="home-content"
@@ -11,10 +12,10 @@
     :pull-up-load="true"
     @scroll="contentScroll"
     @pullingUp="pullingUp">
-      <home-swiper :banners="banners"></home-swiper>
+      <home-swiper :banners="banners" @imgLoad="imgLoad"></home-swiper>
       <home-recom :recommends="recommends"></home-recom>
       <home-feature/>
-      <tab-control :options="['流行','新款','精选']" @tabClick="tabClick"/>
+      <tab-control :options="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1"/>
       <goods-list :goods="showGoods"/>
     </scroll>
     </div>
@@ -59,7 +60,9 @@ export default {
       },
       currentType: 'pop',
       goodsArr: ['pop', 'new', 'sell'],
-      isShow: false
+      isShow: false,
+      tabOffsetTop: 0,
+      isFixed: false
     }
   },
   created () {
@@ -97,6 +100,8 @@ export default {
     // tabControl点击事件
     tabClick (index) {
       this.currentType = this.goodsArr[index]
+      this.$refs.tabControl1.currentIndex = index
+      this.$refs.tabControl2.currentIndex = index
     },
     // back-top点击事件
     backClick () {
@@ -105,11 +110,20 @@ export default {
     },
     // 滚动事件
     contentScroll (position) {
+      // 1.判断滚动高度来使back-top出现或隐藏
       this.isShow = -position.y > 1000
+      // 2.判断滚动是否到了tabControl吸顶位置
+      this.isFixed = -position.y > this.tabOffsetTop
     },
     // 上拉加载更多
     pullingUp () {
       this.getHomeGoodsMethods(this.currentType)
+    },
+    // 监听轮播图里图片加载完成
+    imgLoad () {
+      // 获取tabcontrol的offsetTop赋值给变量
+      this.tabOffsetTop = this.$refs.tabControl1.$el.offsetTop
+      console.log(this.tabOffsetTop)
     }
   },
   computed: {
@@ -123,22 +137,21 @@ export default {
 
 <style scoped>
   #home {
-    padding-top: 44px;
+    /* padding-top: 44px; */
     position: relative;
     height: 100%;
   }
   .home-nav {
     color: #fff;
     background-color: var(--color-tint);
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9;
+    z-index: 9; */
   }
   .tab-control {
-    position: sticky;
-    top: 44px;
+    position: relative;
     z-index: 9;
   }
   .home-content {

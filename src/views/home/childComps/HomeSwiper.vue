@@ -2,7 +2,7 @@
   <mt-swipe>
     <mt-swipe-item  :auto="3000" v-for="(item,index) in banners" :key="index">
         <a :href="item.link">
-        <img :src="item.image" alt="">
+        <img :src="item.image" alt="" @load="imgLoad">
         </a>
      </mt-swipe-item>
   </mt-swipe>
@@ -16,6 +16,19 @@ export default {
       type: Array,
       default () {
         return []
+      }
+    }
+  },
+  data () {
+    return {
+      isLoad: false
+    }
+  },
+  methods: {
+    imgLoad () {
+      if (!this.isLoad) {
+        this.$emit('imgLoad')
+        this.isLoad = true
       }
     }
   }

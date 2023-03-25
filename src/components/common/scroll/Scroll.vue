@@ -41,15 +41,15 @@ export default {
     if (this.probeType === 2 || this.probeType === 3) {
       this.bscroll.on('scroll', (position) => {
       // console.log(position)
-      this.$emit('scroll', position)
-    })
+        this.$emit('scroll', position)
+      })
     }
     // 3.上拉加载更多
     if (this.pullUpLoad) {
       this.bscroll.on('pullingUp', () => {
       // console.log('上拉加载更多')
-      this.$emit('pullingUp')
-    })
+        this.$emit('pullingUp')
+      })
     }
   },
   methods: {

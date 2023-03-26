@@ -62,7 +62,8 @@ export default {
       goodsArr: ['pop', 'new', 'sell'],
       isShow: false,
       tabOffsetTop: 0,
-      isFixed: false
+      isFixed: false,
+      saveY: 0
     }
   },
   created () {
@@ -102,6 +103,7 @@ export default {
       this.currentType = this.goodsArr[index]
       this.$refs.tabControl1.currentIndex = index
       this.$refs.tabControl2.currentIndex = index
+      this.$refs.scroll.scrollTo(0, -this.tabOffsetTop, 500)
     },
     // back-top点击事件
     backClick () {
@@ -123,13 +125,23 @@ export default {
     imgLoad () {
       // 获取tabcontrol的offsetTop赋值给变量
       this.tabOffsetTop = this.$refs.tabControl1.$el.offsetTop
-      console.log(this.tabOffsetTop)
     }
   },
   computed: {
     showGoods () {
       return this.goods[this.currentType].list
     }
+  },
+  activated () {
+    // 重新进入首页后迅速滚到上次的位置
+    this.$refs.scroll.scrollTo(0, this.saveY, 0)
+    // 重新刷新一下
+    this.$refs.scroll.refresh()
+    console.log('activated')
+  },
+  deactivated () {
+    this.saveY = this.$refs.scroll.getScrollY()
+    console.log('deactived')
   }
 }
 

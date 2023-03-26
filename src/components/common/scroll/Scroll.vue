@@ -53,11 +53,21 @@ export default {
     }
   },
   methods: {
+    // 滚动设置
     scrollTo (x, y, time = 300) {
       this.bscroll && this.bscroll.scrollTo(x, y, time)
     },
+    // 重置上拉加载更多
     finishPullUp () {
       this.bscroll && this.bscroll.finishPullUp()
+    },
+    // 获取当前scroll的Y坐标
+    getScrollY () {
+      return this.bscroll ? this.bscroll.y : 0
+    },
+    // 重置刷新
+    refresh () {
+      this.bscroll && this.bscroll.refresh()
     }
   }
 }

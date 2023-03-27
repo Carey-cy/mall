@@ -103,7 +103,7 @@ export default {
       this.currentType = this.goodsArr[index]
       this.$refs.tabControl1.currentIndex = index
       this.$refs.tabControl2.currentIndex = index
-      this.$refs.scroll.scrollTo(0, -this.tabOffsetTop, 500)
+      // this.$refs.scroll.scrollTo(0, -this.tabOffsetTop, 500)
     },
     // back-top点击事件
     backClick () {

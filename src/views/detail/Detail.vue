@@ -1,11 +1,14 @@
 <template>
   <div id="detail">
     <detail-nav class="detail-nav"></detail-nav>
-    <scroll class="content">
-      <detail-swiper :topImg="topImages"></detail-swiper>
-      <detail-base-info :goods="goods"/>
-      <detail-shop-info :shop="shop"/>
-    </scroll>
+    <div class="observe-dom-container">
+      <scroll class="content">
+        <detail-swiper :top-img="topImages"/>
+        <detail-base-info :goods="goods"/>
+        <detail-shop-info :shop="shop"/>
+        <detail-goods-info :detail-info="detailInfo"/>
+      </scroll>
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import DetailShopInfo from './childComps/DetailShopInfo.vue'
 import { getDetails, Goods, Shop } from 'network/detail.js'
 
 import Scroll from 'components/common/scroll/Scroll.vue'
+import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue'
 
 export default {
   name: 'Detail',
@@ -26,7 +30,8 @@ export default {
       id: null,
       topImages: [],
       goods: {},
-      shop: {}
+      shop: {},
+      detailInfo: {}
     }
   },
   components: {
@@ -34,7 +39,8 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
-    Scroll
+    Scroll,
+    DetailGoodsInfo
   },
   created () {
     this.id = this.$route.params.iid
@@ -42,12 +48,14 @@ export default {
     getDetails(this.id).then(res => {
       console.log(res)
       const data = res.result
-      // 获取轮播图数据
+      // 1.获取轮播图数据
       this.topImages = data.itemInfo.topImages
-      // 获取商品信息数据
+      // 2.获取商品信息数据
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
-      // 获取店铺信息
+      // 3.获取店铺信息
       this.shop = new Shop(data.shopInfo)
+      // 4.获取商品详细的信息
+      this.detailInfo = data.detailInfo
     })
   }
 }

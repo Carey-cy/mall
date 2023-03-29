@@ -7,21 +7,23 @@
         <detail-base-info :goods="goods"/>
         <detail-shop-info :shop="shop"/>
         <detail-goods-info :detail-info="detailInfo"/>
+        <detail-param-info :param-info="paramInfo"/>
       </scroll>
     </div>
   </div>
 </template>
 
 <script>
+import { getDetails, Goods, Shop, GoodsParam } from 'network/detail.js'
+
+import Scroll from 'components/common/scroll/Scroll.vue'
+
 import DetailNav from './childComps/DetailNav.vue'
 import DetailSwiper from './childComps/DetailSwiper.vue'
 import DetailBaseInfo from './childComps/DetailBaseInfo.vue'
 import DetailShopInfo from './childComps/DetailShopInfo.vue'
-
-import { getDetails, Goods, Shop } from 'network/detail.js'
-
-import Scroll from 'components/common/scroll/Scroll.vue'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue'
+import DetailParamInfo from './childComps/DetailParamInfo.vue'
 
 export default {
   name: 'Detail',
@@ -31,7 +33,8 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
-      detailInfo: {}
+      detailInfo: {},
+      paramInfo: {}
     }
   },
   components: {
@@ -40,7 +43,8 @@ export default {
     DetailBaseInfo,
     DetailShopInfo,
     Scroll,
-    DetailGoodsInfo
+    DetailGoodsInfo,
+    DetailParamInfo
   },
   created () {
     this.id = this.$route.params.iid
@@ -56,6 +60,8 @@ export default {
       this.shop = new Shop(data.shopInfo)
       // 4.获取商品详细的信息
       this.detailInfo = data.detailInfo
+      // 5.获取参数信息
+      this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
     })
   }
 }

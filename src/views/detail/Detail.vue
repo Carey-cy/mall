@@ -9,15 +9,17 @@
         <detail-goods-info :detail-info="detailInfo"/>
         <detail-param-info :param-info="paramInfo"/>
         <detail-comment-info :comment-info="commentInfo"/>
+        <goods-list :goods="recommend"/>
       </scroll>
     </div>
   </div>
 </template>
 
 <script>
-import { getDetails, Goods, Shop, GoodsParam } from 'network/detail.js'
+import { getDetails, Goods, Shop, GoodsParam, getRecommend } from 'network/detail.js'
 
 import Scroll from 'components/common/scroll/Scroll.vue'
+import GoodsList from 'components/content/goods/GoodsList.vue'
 
 import DetailNav from './childComps/DetailNav.vue'
 import DetailSwiper from './childComps/DetailSwiper.vue'
@@ -37,7 +39,8 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      recommend: []
     }
   },
   components: {
@@ -48,7 +51,8 @@ export default {
     Scroll,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailCommentInfo
+    DetailCommentInfo,
+    GoodsList
   },
   created () {
     this.id = this.$route.params.iid
@@ -70,6 +74,10 @@ export default {
       if (data.rate.list) {
         this.commentInfo = data.rate.list[0]
       }
+    })
+    // 请求推荐数据
+    getRecommend().then(res => {
+      this.recommend = res.data.list
     })
   }
 }

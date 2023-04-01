@@ -165,6 +165,7 @@ export default {
   .tab-control {
     position: relative;
     z-index: 9;
+    top: -1px;
   }
   .home-content {
     position: absolute;

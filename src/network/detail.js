@@ -40,3 +40,9 @@ export class GoodsParam {
     this.sizes = rule.tables
   }
 }
+// 请求推荐页数据方法
+export function getRecommend () {
+  return request({
+    url: '/recommend'
+  })
+}

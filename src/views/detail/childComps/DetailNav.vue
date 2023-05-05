@@ -34,6 +34,7 @@ export default {
     // 监听navbar中选项的点击事件
     itemClick (index) {
       this.currentIndex = index
+      this.$emit('itemClick', index)
     },
     // 监听返回图片的点击事件
     backClick () {

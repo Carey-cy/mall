@@ -1,15 +1,15 @@
 <template>
   <div id="detail">
-    <detail-nav class="detail-nav"></detail-nav>
+    <detail-nav class="detail-nav" @itemClick="navClick"></detail-nav>
     <div class="observe-dom-container">
-      <scroll class="content">
+      <scroll class="content" ref="scroll">
         <detail-swiper :top-img="topImages"/>
         <detail-base-info :goods="goods"/>
         <detail-shop-info :shop="shop"/>
         <detail-goods-info :detail-info="detailInfo"/>
-        <detail-param-info :param-info="paramInfo"/>
-        <detail-comment-info :comment-info="commentInfo"/>
-        <goods-list :goods="recommend"/>
+        <detail-param-info ref="params" :param-info="paramInfo"/>
+        <detail-comment-info :comment-info="commentInfo" ref="comment"/>
+        <goods-list :goods="recommend" ref="recomend"/>
       </scroll>
     </div>
   </div>
@@ -40,7 +40,8 @@ export default {
       detailInfo: {},
       paramInfo: {},
       commentInfo: {},
-      recommend: []
+      recommend: [],
+      themeY: [0, 1000, 3000]
     }
   },
   components: {
@@ -79,6 +80,19 @@ export default {
     getRecommend().then(res => {
       this.recommend = res.data.list
     })
+  },
+  methods: {
+    navClick (index) {
+      this.$refs.scroll.scrollTo(0, -this.themeY[index], 300)
+    }
+  },
+  updated () {
+    this.themeY = []
+    this.themeY.push(0)
+    this.themeY.push(this.$refs.params.$el.offsetTop)
+    this.themeY.push(this.$refs.comment.$el.offsetTop)
+    this.themeY.push(this.$refs.recomend.$el.offsetTop)
+    // console.log(this.themeY)
   }
 }
 </script>

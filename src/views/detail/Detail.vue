@@ -16,6 +16,7 @@
         <goods-list :goods="recommend" ref="recomend"/>
       </scroll>
     </div>
+    <detail-bottom-bar/>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import DetailShopInfo from './childComps/DetailShopInfo.vue'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue'
 import DetailParamInfo from './childComps/DetailParamInfo.vue'
 import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
+import DetailBottomBar from './childComps/DetailBottomBar.vue'
 
 export default {
   name: 'Detail',
@@ -58,7 +60,8 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
-    GoodsList
+    GoodsList,
+    DetailBottomBar
   },
   created () {
     this.id = this.$route.params.iid

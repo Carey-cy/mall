@@ -1,8 +1,12 @@
 <template>
   <div id="detail">
-    <detail-nav class="detail-nav" @itemClick="navClick"></detail-nav>
+    <detail-nav class="detail-nav" @itemClick="navClick" ref="nav"></detail-nav>
     <div class="observe-dom-container">
-      <scroll class="content" ref="scroll">
+      <scroll
+      class="content"
+      ref="scroll"
+      :probe-type= 3
+      @scroll="controlScroll">
         <detail-swiper :top-img="topImages"/>
         <detail-base-info :goods="goods"/>
         <detail-shop-info :shop="shop"/>
@@ -41,7 +45,8 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommend: [],
-      themeY: [0, 1000, 3000]
+      themeY: [0, 1000, 3000],
+      currentIndex: 0
     }
   },
   components: {
@@ -84,6 +89,18 @@ export default {
   methods: {
     navClick (index) {
       this.$refs.scroll.scrollTo(0, -this.themeY[index], 300)
+    },
+    controlScroll (position) {
+      const positionY = -position.y
+      // 判断positionY和各个主题距离
+      const length = this.themeY.length
+      for (let i = 0; i < length - 1; i++) {
+        if (this.currentIndex !== i && (i < length - 1 && positionY >= this.themeY[i] && positionY < this.themeY[i + 1])) {
+          this.currentIndex = i
+          console.log(this.currentIndex)
+          this.$refs.nav.currentIndex = this.currentIndex
+        }
+      }
     }
   },
   updated () {
@@ -92,6 +109,7 @@ export default {
     this.themeY.push(this.$refs.params.$el.offsetTop)
     this.themeY.push(this.$refs.comment.$el.offsetTop)
     this.themeY.push(this.$refs.recomend.$el.offsetTop)
+    this.themeY.push(Number.MAX_VALUE)
     // console.log(this.themeY)
   }
 }

@@ -17,11 +17,13 @@
       </scroll>
     </div>
     <detail-bottom-bar/>
+    <back-top @click.native="backClick" v-show="isShow"/>
   </div>
 </template>
 
 <script>
 import { getDetails, Goods, Shop, GoodsParam, getRecommend } from 'network/detail.js'
+import { backTopMixIn } from 'common/mixin.js'
 
 import Scroll from 'components/common/scroll/Scroll.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
@@ -89,6 +91,7 @@ export default {
       this.recommend = res.data.list
     })
   },
+  mixins: [backTopMixIn],
   methods: {
     navClick (index) {
       this.$refs.scroll.scrollTo(0, -this.themeY[index], 300)
@@ -100,10 +103,12 @@ export default {
       for (let i = 0; i < length - 1; i++) {
         if (this.currentIndex !== i && (i < length - 1 && positionY >= this.themeY[i] && positionY < this.themeY[i + 1])) {
           this.currentIndex = i
-          console.log(this.currentIndex)
+          // console.log(this.currentIndex)
           this.$refs.nav.currentIndex = this.currentIndex
         }
       }
+      // 判断距离是否出现backtop组件
+      this.listenShowBackTop(position)
     }
   },
   updated () {
@@ -126,7 +131,7 @@ export default {
     height: 100vh;
   }
   .content {
-    height: calc(100% - 44px);
+    height: calc(100% - 44px - 49px);
     overflow: hidden;
   }
   .detail-nav {

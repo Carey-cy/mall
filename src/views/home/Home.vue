@@ -28,13 +28,14 @@ import NavBar from 'components/common/navbar/NavBar.vue'
 import Scroll from 'components/common/scroll/Scroll.vue'
 import TabControl from 'components/content/tabcontrol/TabControl.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
-import BackTop from 'components/content/backTop/BackTop.vue'
+// import BackTop from 'components/content/backTop/BackTop.vue'
 
 import HomeSwiper from 'views/home/childComps/HomeSwiper.vue'
 import HomeRecom from 'views/home/childComps/HomeRecom.vue'
 import HomeFeature from 'views/home/childComps/HomeFeature.vue'
 
 import { getHomeMultidata, getHomeGoods } from 'network/home.js'
+import { backTopMixIn } from 'common/mixin.js'
 
 export default {
 
@@ -46,8 +47,7 @@ export default {
     HomeFeature,
     TabControl,
     GoodsList,
-    Scroll,
-    BackTop
+    Scroll
   },
   data () {
     return {
@@ -60,7 +60,7 @@ export default {
       },
       currentType: 'pop',
       goodsArr: ['pop', 'new', 'sell'],
-      isShow: false,
+      // isShow: false,
       tabOffsetTop: 0,
       isFixed: false,
       saveY: 0
@@ -74,6 +74,7 @@ export default {
     this.getHomeGoodsMethods('new')
     this.getHomeGoodsMethods('sell')
   },
+  mixins: [backTopMixIn],
   methods: {
     /**
      * 网络请求相关方法
@@ -106,14 +107,14 @@ export default {
       // this.$refs.scroll.scrollTo(0, -this.tabOffsetTop, 500)
     },
     // back-top点击事件
-    backClick () {
-      console.log(2)
-      this.$refs.scroll.scrollTo(0, 0)
-    },
+    // backClick () {
+    //   // console.log(2)
+    //   this.$refs.scroll.scrollTo(0, 0)
+    // },
     // 滚动事件
     contentScroll (position) {
       // 1.判断滚动高度来使back-top出现或隐藏
-      this.isShow = -position.y > 1000
+      this.listenShowBackTop(position)
       // 2.判断滚动是否到了tabControl吸顶位置
       this.isFixed = -position.y > this.tabOffsetTop
     },

@@ -30,7 +30,6 @@ export default {
 <style scoped>
   .bottom-bar {
     position: relative;
-    bottom: 58px;
     height: 58px;
     background-color: #fff;
     display: flex;
